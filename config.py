@@ -18,7 +18,7 @@ array = [
         "frequency": "3600s",
         "count": "560",
         "refresh": "true",
-        "sleep": 360,
+        "sleep": 3600,
     },
     {
         "name": "CZCE.MA305",
@@ -39,7 +39,7 @@ array = [
         "frequency": "3600s",
         "count": "560",
         "refresh": "true",
-        "sleep": 360,
+        "sleep": 3600,
     },
     {
         "name": "DCE.m2305",
@@ -60,7 +60,7 @@ array = [
         "frequency": "3600s",
         "count": "560",
         "refresh": "true",
-        "sleep": 360,
+        "sleep": 3600,
     },
 ]
 
