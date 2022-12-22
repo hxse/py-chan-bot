@@ -98,8 +98,8 @@ def work_time():
         if now_time >= start and now_time <= end:
             print("now work time...", now_time)
             return True
-        print("not work time...", now_time)
-        return False
+    print("not work time...", now_time)
+    return False
 
 
 async def task(obj):
