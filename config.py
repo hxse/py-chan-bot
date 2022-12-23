@@ -14,13 +14,6 @@ array = [
         "sleep": 900 / 3,
     },
     {
-        "name": "SHFE.rb2305",
-        "frequency": "3600s",
-        "count": "560",
-        "refresh": "true",
-        "sleep": 3600 / 3,
-    },
-    {
         "name": "CZCE.MA305",
         "frequency": "180s",
         "count": "560",
@@ -35,13 +28,6 @@ array = [
         "sleep": 900 / 3,
     },
     {
-        "name": "CZCE.MA305",
-        "frequency": "3600s",
-        "count": "560",
-        "refresh": "true",
-        "sleep": 3600 / 3,
-    },
-    {
         "name": "DCE.m2305",
         "frequency": "180s",
         "count": "560",
@@ -54,13 +40,6 @@ array = [
         "count": "560",
         "refresh": "true",
         "sleep": 900 / 3,
-    },
-    {
-        "name": "DCE.m2305",
-        "frequency": "3600s",
-        "count": "560",
-        "refresh": "true",
-        "sleep": 3600 / 3,
     },
 ]
 
