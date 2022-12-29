@@ -13,7 +13,10 @@ def req_data(obj):
     url = f"http://127.0.0.1:8000/ohlcv?name={obj['name']}&frequency={obj['frequency']}&count={obj['count']}&refresh={obj['refresh']}"
 
     r = requests.get(url)
-    jsonData = json.loads(r.text)
+    if r.status_code == 200:
+        jsonData = json.loads(r.text)
+    else:
+        raise ValueError(f"请求出错 {r.status_code} {r.text}")
 
     data = pd.DataFrame(
         {
@@ -86,7 +89,7 @@ def find_value(dict, keyArr, number=0):
 
 
 def work_time():
-    time_array = [["9:00", "11:00"], ["13:30", "15:00"], ["21:00", "23:00"]]
+    time_array = [["9:00", "11:30"], ["13:30", "15:00"], ["21:00", "23:00"]]
     for i in time_array:
         start = datetime.datetime.strptime(
             str(datetime.datetime.now().date()) + i[0], "%Y-%m-%d%H:%M"
@@ -96,7 +99,7 @@ def work_time():
         )
         now_time = datetime.datetime.now()
         if now_time >= start and now_time <= end:
-            print("now work time...", now_time)
+            print("at work time... ", now_time)
             return True
     print("not work time...", now_time)
     return False
@@ -106,23 +109,26 @@ async def task(obj):
     while 1:
         print("run:", obj)
         if work_time():
-            data = req_data(obj)
-            gen_2k(data)
-            last = data.loc[data.index.stop - 1].copy()
-            if (last["closeGt"] and not last["closeGtDiff"]) | (
-                last["closeLt"] and not last["closeLtDiff"]
-            ):
-                last["level"] = obj["frequency"]
-                last["name"] = obj["name"]
-                last = last.reindex(fields)
-                last.drop(["closeGtDiff"], inplace=True)
-                last.drop(["closeLtDiff"], inplace=True)
+            try:
+                data = req_data(obj)
+                gen_2k(data)
+                last = data.loc[data.index.stop - 1].copy()
+                if (last["closeGt"] and not last["closeGtDiff"]) | (
+                    last["closeLt"] and not last["closeLtDiff"]
+                ):
+                    last["level"] = obj["frequency"]
+                    last["name"] = obj["name"]
+                    last = last.reindex(fields)
+                    last.drop(["closeGtDiff"], inplace=True)
+                    last.drop(["closeLtDiff"], inplace=True)
 
-                h = f"{last['name']} {last['level']} {last['date']}"
-                if h not in history:
-                    send_bot(last)
-                    history.append(h)
-                    print("已发送", h)
+                    h = f"{last['name']} {last['level']} {last['date']}"
+                    if h not in history:
+                        send_bot(last)
+                        history.append(h)
+                        print("已发送", h)
+            except ValueError as e:
+                print(e)
 
         print(f"sleep(s): {obj['sleep']}")
         await asyncio.sleep(obj["sleep"])
