@@ -58,14 +58,14 @@ array = [
 ]
 
 fields = [
+    "name",
+    "level",
+    "date",
     "time",
     "open",
     "high",
     "low",
     "close",
-    "date",
-    "name",
-    "level",
     "closeGt",
     "closeLt",
     "closeGtDiff",
