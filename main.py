@@ -176,8 +176,8 @@ def handle_task(data, obj):
         if h not in history:
             if lazy_send:
                 send_bot(last)
-            history.append(h)
-            print("interval 已发送", h)
+                history.append(h)
+                print("interval 已发送", h)
 
 
 async def task(obj):
@@ -226,8 +226,8 @@ def current_handle_task(data, current, data_obj, current_obj):
         if h not in history:
             if current_send:
                 send_bot(last)
-            history.append(h)
-            print("current 已发送", h)
+                history.append(h)
+                print("current 已发送", h)
 
 
 async def current_task(obj):
@@ -277,13 +277,13 @@ async def main(array):
 if __name__ == "__main__":
 
     enable_lazy = True
-    enable_current = False
+    enable_current = True
 
     testUpdate = False  # True的话,启动测试数据,False,启动真实数据
     offset = 10
     refresh = True
     isFakeWorkTime = True  # True的话,可以在work_time时间外运行程序,False,只能在work_time内运行程序
-    lazy_send = True
+    lazy_send = False
     current_send = True
 
     import asyncio
